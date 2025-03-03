@@ -45,19 +45,44 @@ const Legend = ({ data }: { data: { item: string; fill: string, percentage:numbe
   </div>
 );
 
-export const PieGraph = ({ data, title, footerDescription,type, customHeight,customRadius }: PieGraphProps) => {
-  const totalItems = data.length; 
+import { MdOutlineAnalytics } from 'react-icons/md'; // Ícono de analytics (vacío)
 
-  // Get current date, month, and year
+export const PieGraph = ({ data, title, footerDescription, type, customHeight, customRadius }: PieGraphProps) => {
+  const totalItems = data.length;
+
+  // Obtener la fecha actual, mes y año
   const currentDate = new Date();
-  const currentMonth = currentDate.toLocaleString("default", { month: "long" }); // Get the full month name
-  const currentYear = currentDate.getFullYear(); // Get the current year
+  const currentMonth = currentDate.toLocaleString("default", { month: "long" });
+  const currentYear = currentDate.getFullYear();
 
+  // Verifica si hay datos para mostrar
+  if (totalItems === 0) {
+    return (
+      <Card className="border-0 shadow-none">
+        <CardHeader className="items-center pb-0">
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>June - {`${currentMonth} ${currentYear}`}</CardDescription>
+        </CardHeader>
+        <CardContent className={`h-[350px] ${customHeight} pb-0 flex items-center justify-center`}>
+          {/* Placeholder visual: Ícono de gráfico vacío */}
+          <div className="flex flex-col items-center justify-center space-y-4">
+            <MdOutlineAnalytics className="text-4xl text-muted-foreground" />
+            <p className="text-center text-muted-foreground">No data available</p>
+          </div>
+        </CardContent>
+        <CardFooter className="flex-col text-center gap-2 text-sm">
+          <p className="leading-none text-muted-foreground">{footerDescription}</p>
+        </CardFooter>
+      </Card>
+    );
+  }
+
+  // Código original para cuando hay datos
   return (
-    <Card className={`border-0 shadow-none `}>
+    <Card className={`border-0 shadow-none`}>
       <CardHeader className="items-center pb-0">
         <CardTitle>{title}</CardTitle>
-        <CardDescription>June - {`${currentMonth} ${currentYear}`}</CardDescription> {/* Dynamic month and year */}
+        <CardDescription>June - {`${currentMonth} ${currentYear}`}</CardDescription>
       </CardHeader>
       <CardContent className={`h-[350px] ${customHeight} pb-0`}>
         <ChartContainer
@@ -71,8 +96,8 @@ export const PieGraph = ({ data, title, footerDescription,type, customHeight,cus
             />
             <Pie
               data={data}
-              dataKey="percentage" // Correctly using percentage
-              nameKey="item"   // Correctly using item
+              dataKey="percentage"
+              nameKey="item"
               innerRadius={customRadius}
             >
               <Label
@@ -90,14 +115,14 @@ export const PieGraph = ({ data, title, footerDescription,type, customHeight,cus
                           y={viewBox.cy}
                           className="fill-foreground text-2xl font-bold"
                         >
-                          {totalItems} {/* Correctly display total items */}
+                          {totalItems}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 20}
                           className="fill-muted-foreground text-[13px]"
                         >
-                          {type} {/* Using footerDescription here */}
+                          {type}
                         </tspan>
                       </text>
                     )
@@ -114,5 +139,5 @@ export const PieGraph = ({ data, title, footerDescription,type, customHeight,cus
         <Legend data={data} />
       </CardFooter>
     </Card>
-  )
+  );
 }

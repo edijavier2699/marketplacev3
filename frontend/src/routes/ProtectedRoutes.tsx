@@ -14,7 +14,7 @@ const ProtectedRoutes = () => {
     <Routes>
       <Route element={<DashboardLayout />}>
         <Route
-          path="dashboard/"
+          path="/"
           element={<ProtectedRoute roleRequired="user,admin" element={<Dashboard />} />}
         />
         <Route

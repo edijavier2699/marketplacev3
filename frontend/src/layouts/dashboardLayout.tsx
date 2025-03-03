@@ -18,18 +18,18 @@ const DashboardLayout = () => {
   const menuData =
     role === "admin"
       ? [
-          { name: "Overview", link: "/app/dashboard/", icon: <Grid2x2 /> },
-          { name: "Property Management", link: "/app/property-managment/", icon: <Grid2x2 /> },
+          { name: "Overview", link: "/", icon: <Grid2x2 /> },
+          { name: "Property Management", link: "/property-managment/", icon: <Grid2x2 /> },
         ]
       : role === "user"
       ? [
-          { name: "Overview", link: "/app/dashboard/", icon: <Grid2x2 /> },
-          { name: "Assets", link: "/app/investments/", icon: <Coins /> },
-          { name: "Search", link: "/app/search-property/", icon: <SearchCheck /> },
-          { name: "Wallet", link: "/app/wallet-view/", icon: <WalletMinimal /> },
-          { name: "Transactions", link: "/app/transactions/", icon: <GrTransaction /> },
-          { name: "Proccess", link: "/app/check-process/", icon: <Clock3 /> },
-          { name: "Profile", link: "/app/transactions/", icon: <User /> },
+          { name: "Overview", link: "/", icon: <Grid2x2 /> },
+          { name: "Assets", link: "/investments/", icon: <Coins /> },
+          { name: "Search", link: "/search-property/", icon: <SearchCheck /> },
+          { name: "Wallet", link: "/wallet-view/", icon: <WalletMinimal /> },
+          { name: "Transactions", link: "/transactions/", icon: <GrTransaction /> },
+          { name: "Proccess", link: "/check-process/", icon: <Clock3 /> },
+          { name: "Profile", link: "/transactions/", icon: <User /> },
 
         ]
       : [];

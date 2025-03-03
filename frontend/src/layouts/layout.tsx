@@ -6,7 +6,6 @@ import { LoadingSpinner } from "@/components/loadingSpinner";
 import { useAuth } from "@/hooks/useAuth"; // Importamos el hook
 
 // Importación de rutas de manera perezosa
-const PublicRoutes = React.lazy(() => import("../routes/PublicRoutes"));
 const AuthRoutes = React.lazy(() => import("../routes/AuthRoutes"));
 const ProtectedRoutes = React.lazy(() => import("../routes/ProtectedRoutes"));
 
@@ -19,17 +18,13 @@ const Layout = () => {
         <Toaster />
         <ScrollToTop>
           {isLoading ? (
-            <LoadingSpinner /> // Muestra un spinner mientras carga
+            <LoadingSpinner /> 
           ) : (
             <Routes>
-              {/* Rutas públicas */}
-              <Route path="/*" element={<PublicRoutes />} />
 
-              {/* Rutas de autenticación */}
               <Route path="/auth/*" element={<AuthRoutes />} />
 
-              {/* Rutas protegidas (Dashboard) */}
-              <Route path="/app/*" element={<ProtectedRoutes />} />
+              <Route path="/*" element={<ProtectedRoutes />} />
             </Routes>
           )}
         </ScrollToTop>

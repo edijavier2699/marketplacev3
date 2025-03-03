@@ -119,25 +119,6 @@ export const MyAssetsColumns: ColumnDef<RowData, unknown>[] = [
     cell: ({ row }) => <div>{row.getValue("property_type")}</div>,
   },
   {
-    accessorKey: "user_tokens",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Available Tokens" />,
-    cell: ({ row }) => {
-      const tokensPercentage =
-        (parseInt(row.getValue("user_tokens")) * 100) /
-        parseInt(row.getValue("totalTokens"));
-      return (
-        <div className="flex flex-col">
-          <span className="text-[#82A621] font-bold">
-            {tokensPercentage.toFixed(2)}%
-          </span>
-          <span>
-            {row.getValue("user_tokens")} of {row.getValue("totalTokens")}
-          </span>
-        </div>
-      );
-    },
-  },
-  {
     accessorKey: "totalTokens",
     header: "Total Tokens",
     cell: ({ row }) => <div>{row.getValue("totalTokens")}</div>,

@@ -15,24 +15,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth0 } from '@auth0/auth0-react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-
-// Cargar de manera perezosa los componentes
+import LogoutButton from '../buttons/logoutBtn';
 const Notifications = React.lazy(() => import('../notifications/notifications'));
-const LogoutButton = React.lazy(() => import('../buttons/logoutBtn'));
+
 
 export const UserNavbar = () => {
   const { user } = useAuth0();
-  const navigate = useNavigate(); // Inicia el hook navigate
+  const navigate = useNavigate(); 
 
-  // Función de manejo de atajos de teclado
+
   const handleShortcuts = (event: KeyboardEvent) => {
-    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "b") {
-      event.preventDefault();
-      navigate("/app/dashboard/"); // Usar navigate para redirigir
-    }
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "z") {
       event.preventDefault();
-      navigate("/"); // Redirige al inicio
+      navigate("/"); 
     }
   };
 
@@ -45,13 +40,11 @@ export const UserNavbar = () => {
   }, []);
 
   const userNavLinkDropDown = [
-    { name: "Marketplace", url: "/", shortCutLetter: "Z" },
-    { name: "Dashboard", url: "/app/dashboard/", shortCutLetter: "B" },
+    { name: "Dashboard", url: "/", shortCutLetter: "B" },
   ];
 
   return (
     <div className="flex items-center space-x-4">
-      {/* Suspense para manejar la carga perezosa de Notifications */}
       <Suspense fallback={<div>Loading notifications...</div>}>
         <Notifications />
       </Suspense>
@@ -83,10 +76,7 @@ export const UserNavbar = () => {
             ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          {/* Suspense para manejar la carga perezosa de LogoutButton */}
-          <Suspense fallback={<div>Loading logout button...</div>}>
             <LogoutButton />
-          </Suspense>
         </DropdownMenuContent>
       </DropdownMenu>
       <ConnectButton showBalance={false} />

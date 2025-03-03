@@ -3,17 +3,10 @@ from django.contrib.postgres.fields import ArrayField, JSONField
 from django.utils import timezone
 import uuid
 from django.core.exceptions import ValidationError
-import secrets
 from django.core.validators import MinValueValidator, MaxValueValidator
 from dateutil.relativedelta import relativedelta
 import calendar
 from django.utils import timezone
-
-
-
-# Función para generar un batchId único
-# def generar_batch_id():
-#     return secrets.randbits(32)  # Genera un número aleatorio de 32 bits
 
 
 class TimeStampedModel(models.Model):
@@ -51,8 +44,6 @@ class Property(TimeStampedModel):
     reference_number = models.UUIDField(default=uuid.uuid4, unique=True, blank=True, null=False, help_text="Automatically generated unique identifier for the property.")
 
     title = models.CharField(max_length=255)
-    property_manager = models.CharField(max_length=255 , null=True, blank=True)
-    property_token_structure = models.CharField(max_length=255 , null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     details = models.JSONField(blank=True, null=True, help_text="Detailed description and specifics of the property.")
     price = models.DecimalField(max_digits=10, decimal_places=2, help_text="The sale or list price of the property.")
@@ -66,7 +57,6 @@ class Property(TimeStampedModel):
     ipfs_nformation_url = models.CharField(unique=True, null=True, blank=True)
     batchId = models.PositiveBigIntegerField(null=True, blank=True)  # ID único, generado aleatoriamente
     rental_due_day = models.PositiveSmallIntegerField(null=True,blank=True,validators=[MinValueValidator(1), MaxValueValidator(31)])
-    ownershipPercentage = models.IntegerField(blank=True, null=True)
     tenant_turnover = models.DecimalField(blank=True, null=True,max_digits=5, decimal_places=2,)
     vacancy_rate = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)
     investment_category =  models.CharField(max_length=25, choices=INVESTMENT_CATEGORY, default="core")
@@ -98,7 +88,6 @@ class Property(TimeStampedModel):
     dao_administration_fees = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text="Annual fees paid to the DAO for administrative services.")
     annual_cash_flow = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True, help_text="Net annual revenue from the property, after deducting all expenses.")
     monthly_cash_flow = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True, help_text="Net income from the property calculated on a monthly basis.")
-    equity_listed = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     projected_annual_cash_flow = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True, help_text="Estimated yearly cash flow based on projected rental and operational costs.")
     legal_documents_url = models.URLField(max_length=500, null=True, blank=True, help_text="URL to access legal documents related to this property.")
 

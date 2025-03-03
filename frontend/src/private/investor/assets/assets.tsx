@@ -65,7 +65,7 @@ const Assets = () => {
           <DashboardDetailCard title="Your Assets Value" isCurrency={true} value={total_owned_value} />
           <DashboardDetailCard title="Projected Rental Yield" value={12} />
         </div>
-        {property_types.length > 0 && (
+        {property_types && (
         <Card>
           <PieGraph
             customHeight="h-[100px]"

@@ -4,6 +4,7 @@ import { useGetAxiosRequest } from "@/hooks/getAxiosRequest";
 import { Wallet } from "@/types";
 import ShowBalanceTokens from "@/components/showBalanceTokens";
 
+
 type ApiResponse = {
   wallet: Wallet;
   utility_tokens: any;
@@ -23,11 +24,11 @@ const WalletView = () => {
   
   return (
     <div className="w-full">
-      <WalletTabView 
-        walletAddress={data.wallet.wallet_address} 
-        isEnabled={data.wallet.is_enabled} 
-        balance={data.wallet.balance} 
-      />
+        <WalletTabView 
+          walletAddress={data.wallet.wallet_address} 
+          isEnabled={data.wallet.is_enabled} 
+          balance={data.wallet.balance} 
+        />
         <ShowBalanceTokens 
           ptDistribution={data.property_tokens}
           utDistribution={data.utility_tokens.batch_values} 
