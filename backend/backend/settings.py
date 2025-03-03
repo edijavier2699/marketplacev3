@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
     'localhost:5174',
     "tokunize.com",
     "web-app-dev-omega.vercel.app"
+    "octopus-app-i532o.ondigitalocean.app"
 ]
 
 
@@ -81,6 +82,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.tokunize.com",
     "https://web-app-dev-omega.vercel.app",
     "http://127.0.0.1:5173", 
+    "https://octopus-app-i532o.ondigitalocean.app"
 ]
 
 
@@ -88,7 +90,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://octopus-app-zlell.ondigitalocean.app",
     "http://localhost:5173",
     "https://www.tokunize.com",
-    "https://web-app-dev-omega.vercel.app"
+    "https://web-app-dev-omega.vercel.app",
+    "https://octopus-app-i532o.ondigitalocean.app"
 ]
 
 
