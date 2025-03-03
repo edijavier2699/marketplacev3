@@ -34,14 +34,13 @@ SECRET_KEY = 'django-insecure-7rd+ggxl@zmwna&zce-n20qv!s-&jacl9eu8ivyo-#d*$kk9me
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'octopus-app-zlell.ondigitalocean.app',
     '127.0.0.1',
     'localhost',
     'localhost:5173',
     'localhost:5174',
     "tokunize.com",
     "web-app-dev-omega.vercel.app"
-    "octopus-app-i532o.ondigitalocean.app"
+    "urchin-app-q3vnz.ondigitalocean.app"
 ]
 
 
@@ -76,22 +75,20 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://octopus-app-zlell.ondigitalocean.app",
     "https://dev-2l2jjwfm5ekzae3u.us.auth0.com",
     "http://localhost:5174",
     "https://www.tokunize.com",
     "https://web-app-dev-omega.vercel.app",
     "http://127.0.0.1:5173", 
-    "https://octopus-app-i532o.ondigitalocean.app"
+    "https://urchin-app-q3vnz.ondigitalocean.app"
 ]
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://octopus-app-zlell.ondigitalocean.app",
     "http://localhost:5173",
     "https://www.tokunize.com",
     "https://web-app-dev-omega.vercel.app",
-    "https://octopus-app-i532o.ondigitalocean.app"
+    "https://urchin-app-q3vnz.ondigitalocean.app"
 ]
 
 
