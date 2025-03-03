@@ -1,0 +1,26 @@
+{
+    "name": "Modern Office Space",
+    "description": "Tokenize your investments in real estate with Modern Office Space. Representing real estate investments in London.",
+    "image": "https://images.unsplash.com/photo-1505409859467-3a796fd5798e?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+    "external_url": "https://example.com/poolA",
+    "attributes": [
+      {
+        "trait_type": "Property Value",
+        "value": 100000
+      },
+      {
+        "trait_type": "Location",
+        "value": "London, UK"
+      },
+      {
+        "trait_type": "Currency",
+        "value": "GBP"
+      },
+      {
+        "trait_type": "Token Value",
+        "value": 1000
+      }
+    ]
+  }
+  
+  

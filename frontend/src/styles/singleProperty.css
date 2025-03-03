@@ -1,0 +1,13 @@
+
+.propertyHeading{
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.featureContainer{
+    padding-top:40px ;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgb(212, 212, 212);
+    margin-top: 40px;
+}

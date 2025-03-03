@@ -1,0 +1,59 @@
+{
+    "Multifamily": {
+      "overview": {
+        "additionalFinancialInformation": {
+          "IRR": "11.8%",
+          "NOI": "£613,554",
+          "totalTenants": 14,
+          "minimumInvestment": "£1,000",
+          "daysRemaining": "30 Days",
+          "offeringDuration": "1 Month",
+          "offeringEndDate": "May 18, 2024",
+          "exchangeOpensOn": "April 17, 2024"
+        }
+      }
+    },
+    "Offices": {
+      "overview": {
+        "additionalFinancialInformation": {
+          "IRR": "7.8%",
+          "NOI": "£707,174",
+          "totalTenants": 14,
+          "minimumInvestment": "£1,000",
+          "daysRemaining": "0 Days",
+          "offeringDuration": "1 Month",
+          "offeringEndDate": "February 18, 2024",
+          "exchangeOpensOn": "January 17, 2024"
+        }
+      }
+    },
+    "Data Center": {
+      "overview": {
+        "additionalFinancialInformation": {
+          "IRR": "16.9%",
+          "NOI": "£392,080",
+          "note": "(projected based on future income once operational)",
+          "debt": "71%",
+          "minimumInvestment": "£1,000",
+          "daysRemaining": "0 Days",
+          "totalTenants": 0,
+          "offeringDuration": "1 Month",
+          "offeringEndDate": "February 18, 2024",
+          "exchangeOpensOn": "January 17, 2024"
+        }
+      },
+      "financials": {
+        "sourcesAndUsesTable": {
+          "projectBudget": {
+            "totalProjectCost": "£22,320,000",
+            "acquisitionCosts": "£3,571,200 (16%)",
+            "softCostExpenses": "£1,562,400 (7%)",
+            "hardCostExpenses": "£13,392,000 (60%)",
+            "contingency": "£1,116,000 (5%)",
+            "holdingAndLeaseUpCost": "£2,678,400 (12%)"
+          }
+        }
+      }
+    }
+  }
+  

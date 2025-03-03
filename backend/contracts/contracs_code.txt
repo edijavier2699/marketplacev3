@@ -1,0 +1,177 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./ERCPropertyToken.sol"; // Importa el contrato del token de propiedad
+
+contract PropertyInvestment {
+
+    IERC20 public usdcToken;  // Token USDC (mUSDC o USDC real)
+    ERCPropertyToken public propertyToken;  // Token de propiedad (PropertyToken)
+    address public propertyOwner;  // Propietario de la propiedad
+
+    uint256 public goal;  // Objetivo de tokens a alcanzar
+    uint256 public totalUSDCInvested;  // Total de USDC invertido hasta el momento
+    uint256 public totalInvestors;  // Total de inversores
+    mapping(address => uint256) public investments;  // Inversión de cada inversor
+    address[] public investors;  // Lista de inversores
+
+    // Constructor: Ahora la dirección de USDC es dinámica y configurable
+    constructor(address _usdcAddress, ERCPropertyToken _propertyToken, address _propertyOwner, uint256 _goal) {
+        usdcToken = IERC20(_usdcAddress);  // Dirección del contrato de USDC
+        propertyToken = _propertyToken;  // Dirección del contrato del token de propiedad
+        propertyOwner = _propertyOwner;  // Dirección del propietario de la propiedad
+        goal = _goal;  // Establece el objetivo de tokens
+    }
+
+    // Función de inversión
+    function invest(uint256 usdcAmount) external {
+        require(usdcAmount > 0, "Amount must be greater than 0");
+
+        // Transferir USDC del inversor al contrato
+        bool success = usdcToken.transferFrom(msg.sender, address(this), usdcAmount);
+        require(success, "USDC transfer failed");
+
+        // Actualizar la inversión del inversor
+        investments[msg.sender] += usdcAmount;
+        totalUSDCInvested += usdcAmount;
+
+        // Si el inversor es nuevo, agregarlo al arreglo de inversores
+        if (investments[msg.sender] == usdcAmount) {
+            investors.push(msg.sender); // Añadir inversor al arreglo
+            totalInvestors++;
+        }
+
+        // Verificar si hemos alcanzado el goal (el número de PropertyTokens en total)
+        if (totalUSDCInvested >= goal) {
+            distributeTokens();  // Distribuir tokens a los inversores
+        }
+    }
+
+    // Función para distribuir los tokens a los inversores cuando el goal es alcanzado
+    function distributeTokens() internal {
+        // Distribuir tokens proporcionalmente entre los inversores
+        for (uint256 i = 0; i < investors.length; i++) {
+            address investor = investors[i];
+            uint256 investorShare = investments[investor];
+            uint256 tokensToSend = investorShare; // Cada USDC equivale a un token
+
+            // Transferir los tokens correspondientes al inversor
+            propertyToken.transfer(investor, tokensToSend);
+        }
+
+        // Transferir los USDC al propietario de la propiedad
+        usdcToken.transfer(propertyOwner, totalUSDCInvested);
+
+        // Reiniciar los valores para permitir nuevas inversiones o reiniciar el ciclo
+        totalUSDCInvested = 0;
+        for (uint256 i = 0; i < investors.length; i++) {
+            investments[investors[i]] = 0;
+        }
+    }
+
+    // Función para obtener la lista de inversores con sus tokens proporcionalmente asignados
+    function getAllInvestors() public view returns (address[] memory, uint256[] memory) {
+        uint256[] memory tokensForInvestors = new uint256[](investors.length);
+
+        // Calcular los tokens para cada inversor en base a su inversión
+        for (uint256 i = 0; i < investors.length; i++) {
+            address investor = investors[i];
+            uint256 tokensToSend = investments[investor]; // Proporción de tokens (cada USDC equivale a un token)
+            tokensForInvestors[i] = tokensToSend;
+        }
+
+        return (investors, tokensForInvestors);
+    }
+
+    // Función para obtener los tokens de un inversor específico
+    function getTokensForInvestor(address investor) public view returns (uint256) {
+        return investments[investor]; // Cada USDC invertido equivale a un token
+    }
+}
+
+
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol"; // Opcional: si necesitas la funcionalidad de quema
+import "@openzeppelin/contracts/access/Ownable.sol"; // Importar Ownable para usar onlyOwner
+
+// Interfaz del estándar ERC3643 (T-REX Protocol)
+interface IERC3643 {
+    function setPermissions(address account, bool allowed) external;
+    function isAllowed(address account) external view returns (bool);
+}
+
+contract ERCPropertyToken is ERC20, Ownable, IERC3643 {
+    mapping(address => bool) private _permissions;
+
+    // Constructor que recibe la cantidad inicial de tokens a acuñar
+    constructor(uint256 initialSupply, address initialOwner) ERC20("PropertyToken", "PTK") Ownable(initialOwner) {
+        require(initialSupply > 0, "Initial supply must be greater than zero");
+        _mint(initialOwner, initialSupply); // Inicialmente acuña tokens para el owner (el propietario)
+    }
+
+    // Sobrescribimos la función decimals para que use 6 decimales como USDC
+    function decimals() public view virtual override returns (uint8) {
+        return 6;
+    }
+
+    // Función para acuñar nuevos tokens, solo accesible por el owner del contrato
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+    // 0xbA630403820520fc003EAeCccd19c053533CE54E
+// 0xbA630403820520fc003EAeCccd19c053533CE54E
+// 0xDAD3ED833b8fa5017Fb3892A1b497Ecd94c42Acf
+    // Implementación de la función para establecer permisos
+    function setPermissions(address account, bool allowed) external override onlyOwner {
+        _permissions[account] = allowed;
+    }
+
+    // Implementación de la función para verificar permisos
+    function isAllowed(address account) public view override returns (bool) {
+        return _permissions[account];
+    }
+
+    // Sobreescribimos la función transfer para implementar el control de permisos
+    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+        require(isAllowed(msg.sender), "Sender is not allowed to transfer tokens");
+        return super.transfer(recipient, amount);
+    }
+
+    // Sobreescribimos la función transferFrom para implementar el control de permisos
+    function transferFrom(address sender, address recipient, uint256 amount) public virtual override returns (bool) {
+        require(isAllowed(sender), "Sender is not allowed to transfer tokens");
+        return super.transferFrom(sender, recipient, amount);
+    }
+}
+
+
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract MockUSDC is ERC20 {
+    // Definir el suministro inicial de 20 USDC (20 * 10 ** 6 para 6 decimales)
+    uint256 private constant INITIAL_SUPPLY = 20 * 10 ** 6; // 20 mUSDC
+
+    constructor() ERC20("Mock USD Coin", "mUSDC") {
+        _mint(msg.sender, INITIAL_SUPPLY); // Acuña el suministro inicial al creador del contrato
+    }
+
+    function mint(address to, uint256 amount) external {
+        _mint(to, amount);
+    }
+
+    function decimals() public view virtual override returns (uint8) {
+        return 6; // Usar 6 decimales
+    }
+}
