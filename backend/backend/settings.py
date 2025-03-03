@@ -39,7 +39,7 @@ ALLOWED_HOSTS = [
     'localhost:5173',
     'localhost:5174',
     "tokunize.com",
-    "web-app-dev-omega.vercel.app"
+    "web-app-dev-omega.vercel.app",
     "urchin-app-q3vnz.ondigitalocean.app"
 ]
 
