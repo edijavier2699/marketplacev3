@@ -174,8 +174,6 @@ export type RowData = {
   title: string;
   user_tokens: number;
   price: number;
-  price_increase_percentage: number;
-  projected_rental_yield: number;
   cap_rate: number;
   ocupancy_status: string;
   performance_status: string;

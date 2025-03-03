@@ -29,11 +29,6 @@ const WalletView = () => {
           isEnabled={data.wallet.is_enabled} 
           balance={data.wallet.balance} 
         />
-        <ShowBalanceTokens 
-          ptDistribution={data.property_tokens}
-          utDistribution={data.utility_tokens.batch_values} 
-          totalUTValue={data.overall_total_value}
-        />
     </div>
   );
 };

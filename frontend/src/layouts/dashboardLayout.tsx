@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 // Importa la acción para guardar el rol en Redux
 import SideMenu from "@/components/dashboard/sideMenu";
 import { UserNavbar } from "@/components/dashboard/useNavbar";
-import { WalletMinimal, Coins, Grid2x2,SearchCheck ,Clock3, User} from "lucide-react";
+import { WalletMinimal, Coins, Grid2x2,SearchCheck ,Clock3} from "lucide-react";
 import { LoadingSpinner } from "@/components/loadingSpinner";
 import { GrTransaction } from "react-icons/gr";
 import { useSelector } from "react-redux";
@@ -23,14 +23,11 @@ const DashboardLayout = () => {
         ]
       : role === "user"
       ? [
-          { name: "Overview", link: "/", icon: <Grid2x2 /> },
-          { name: "Assets", link: "/investments/", icon: <Coins /> },
+          { name: "Deals", link: "/check-process/", icon: <Clock3 /> },
           { name: "Search", link: "/search-property/", icon: <SearchCheck /> },
+          { name: "Assets", link: "/investments/", icon: <Coins /> },
           { name: "Wallet", link: "/wallet-view/", icon: <WalletMinimal /> },
           { name: "Transactions", link: "/transactions/", icon: <GrTransaction /> },
-          { name: "Proccess", link: "/check-process/", icon: <Clock3 /> },
-          { name: "Profile", link: "/transactions/", icon: <User /> },
-
         ]
       : [];
 

@@ -40,7 +40,7 @@ const Assets = () => {
   } = data || {}; 
 
   
-  const tabs: TabItem[] = [{ type: "text", content: "My Assets" },{ type: "text", content: "Invested Assets" }];
+  const tabs: TabItem[] = [{ type: "text", content: "Listed Assets" },{ type: "text", content: "Sold Assets" },{ type: "text", content: "My Assets" }];
   const tabComponents = [
     <DataTable<RowData, unknown>
       isDownloadable={true}
@@ -54,6 +54,12 @@ const Assets = () => {
       filterOptions={filterOptions}
       data={invested_properties}
     />,
+    <DataTable<RowData, unknown>
+    isDownloadable={true}
+    columns={MyAssetsColumns}
+    filterOptions={filterOptions}
+    data={invested_properties}
+  />,
   ];
 
   return (

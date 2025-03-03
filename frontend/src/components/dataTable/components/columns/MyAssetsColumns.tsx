@@ -1,7 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import positiveNumber from "../../../../assets/postiveNumber.svg";
-import negativeNumber from "../../../../assets/negativeNumber.svg";
 import { DataTableColumnHeader } from "../tasdata-table-column-header";
 import { RowData } from "@/types";
 
@@ -67,36 +65,6 @@ export const MyAssetsColumns: ColumnDef<RowData, unknown>[] = [
         </div>
       );
     },
-  },
-  {
-    accessorKey: "price_increase_percentage",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Price Chart" />,
-    cell: ({ row }) => {
-      const priceChartValue = row.getValue("price_increase_percentage") as number;
-      const imgSrc =
-        priceChartValue > 0
-          ? positiveNumber
-          : priceChartValue < 0
-          ? negativeNumber
-          : "/path/to/neutral-image.png";
-      return (
-        <div className="flex space-x-3 items-center">
-          <p
-            className={`${
-              priceChartValue > 0 ? "text-green-500" : "text-red-500"
-            }`}
-          >
-            {priceChartValue}%
-          </p>
-          <img src={imgSrc} alt="Price chart indicator" className="w-12 h-12" />
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "projected_rental_yield",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Yield" />,
-    cell: ({ row }) => <div>{row.getValue("projected_rental_yield")}</div>,
   },
   {
     accessorKey: "cap_rate",
