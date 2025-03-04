@@ -25,7 +25,6 @@ const SingleProperty = ({data, reference_number }:Props ) => {
             <PurchaseForm
               property_id={reference_number}
               tokenPrice={data.tokens[0].token_price}
-              projected_annual_return={parseFloat(data.projected_annual_return)}
             />
           )}
         </div>

@@ -5,13 +5,11 @@ const PaymentFlow = React.lazy(() => import('@/components/payment/paymentFlow'))
 
 interface PurchaseFormProps {
   tokenPrice: number;
-  projected_annual_return: number;
   property_id: string;
 }
 
 const PurchaseForm = ({
   tokenPrice,
-  projected_annual_return,
   property_id,
 }: PurchaseFormProps) => {
 
@@ -23,14 +21,10 @@ const PurchaseForm = ({
       >
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <p className="md:text-sm lg:text-lg text-gray-700 text-left">Price per token</p>
+            <p className="md:text-sm lg:text-lg text-gray-700 text-left">NAV</p>
             <span className="font-semibold md:text-lg lg:text-2xl">
               <FormatCurrency amount={tokenPrice} />
             </span>
-          </div>
-          <div className="flex items-center  justify-between">
-            <p className="text-sm md:text-sm lg:text-lg text-gray-700">Projected annual return</p>
-            <span className="font-semibold md:text-lg inline-block lg:text-2xl">{projected_annual_return}%</span>
           </div>
         </div>
 

@@ -2,7 +2,6 @@ import { LoadingSpinner } from '../../components/loadingSpinner';
 import { FormatCurrency } from '../../components/currencyConverter';
 import { CapitalStackGraph } from '../../components/graphs/stackGraph';
 import RentalGraph from '@/components/graphs/rentalGraph';
-import IndexComparativeCharts from '@/components/graphs/indexComparativeCharts';
 
 interface PropertyFinancialProps {
   data?: {
@@ -78,9 +77,8 @@ const Finantial = ({ data, loading, error }:PropertyFinancialProps) => {
   
   return (
     <section className="md:pl-5 text-lg ">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1">
         <RentalGraph title="Projected Rental Yield" description="Projected annual yield for the last 6 months" />
-        <RentalGraph title="Projected Annual Returns" description="Projected annual returns for the last 6 months" />
       </div>
 
 
@@ -344,7 +342,6 @@ const Finantial = ({ data, loading, error }:PropertyFinancialProps) => {
         </>
        )}
     </div>
-    <IndexComparativeCharts/>
     </section>
   );
 };

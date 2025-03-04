@@ -1,12 +1,11 @@
 import React, { Suspense, useState } from 'react';
 const Documents = React.lazy(() => import('./documents'));
-const Activity = React.lazy(() => import('./activity'));
 const Finantial = React.lazy(() => import('./financial'));
 import { Overview } from './overview';
 import { PropertyFinancialData } from '@/types';  
 import { useGetAxiosRequest } from '@/hooks/getAxiosRequest';
 import { DataAccordion } from '../../components/dataAccordion/DataAccordion';
-import { Property ,TabItem,PropertyUpdate} from '@/types';
+import { Property ,TabItem} from '@/types';
 
 interface PropertyAccordionProps {
   property_id: string;
@@ -15,7 +14,6 @@ interface PropertyAccordionProps {
 
 // Tipo esperado para los datos de actividad
 interface PropertyActivityData {
-  property_updates: PropertyUpdate[];
   transactions: { semana: string; volumen_total: number }[];
   total_volumen: number;
 }
@@ -26,7 +24,6 @@ export const PropertyAccordion = ({ property_id, overviewData }: PropertyAccordi
   const tabs: TabItem[] = [
     { type: "text", content: "Overview" },
     { type: "text", content: "Financial" },
-    { type: "text", content: "Activity" },
     { type: "text", content: "Documents" },
   ];
 
@@ -47,20 +44,7 @@ export const PropertyAccordion = ({ property_id, overviewData }: PropertyAccordi
       loading={loading}
       error={error}
       key="financial"
-    />,
-    
-    // Para Activity, solo pasa los datos si viewType es 'activity' y data no es null
-    viewType === 'activity' && data ? (
-      <Activity
-        data={data as PropertyActivityData}
-        loading={loading}
-        error={error}
-        key="activity"
-      />
-    ) : (
-      <div>No data available</div>
-    ),
-    
+    />,    
     <Documents key="documents" />,
   ];
   

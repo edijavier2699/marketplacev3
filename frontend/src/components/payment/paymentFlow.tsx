@@ -323,7 +323,7 @@ const PaymentFlow = ({ property_id }:Props) => {
               )}
             </div>
       </GlobalModal>
-      <Button className="w-full" onClick={openModal}>Invest</Button>
+      <Button className="w-full" onClick={openModal}>Buy</Button>
     </>
 
   );

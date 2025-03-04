@@ -205,10 +205,3 @@ export interface AssetSmallTable {
 }
 
 
-export interface PropertyUpdate{
-  update_title:string;
-  update_date:string;
-  update_type:string;
-  update_cost:number;
-  update_description:string;
-}

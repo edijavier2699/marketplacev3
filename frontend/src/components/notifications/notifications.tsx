@@ -53,16 +53,7 @@ const Notifications = () => {
     }
   );
 
-    useEffect(() => {  
-      const socket = new WebSocket('ws://127.0.0.1:8000/ws/notifications/');
-      socket.onmessage = async () => { 
-      setUnreadCount(prev => prev + 1);
-      };
-      return () => {
-        socket.close();
-      };
-    }, []); 
-
+ 
   // Obtener notificaciones desde la API
   const { loading } = useGetAxiosRequest<Notification[]>(
     `${import.meta.env.VITE_APP_BACKEND_URL}notifications/mynotifications/`,
