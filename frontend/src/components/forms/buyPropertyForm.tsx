@@ -21,9 +21,9 @@ const PurchaseForm = ({
       >
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <p className="md:text-sm lg:text-lg text-gray-700 text-left">NAV</p>
+            <p className="md:text-sm lg:text-lg text-gray-700 text-left">N.A.V</p>
             <span className="font-semibold md:text-lg lg:text-2xl">
-              <FormatCurrency amount={tokenPrice} />
+              <FormatCurrency amount={2200000} />
             </span>
           </div>
         </div>

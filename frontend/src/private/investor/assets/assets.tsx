@@ -8,8 +8,61 @@ import { MyAssetsColumns } from "@/components/dataTable/components/columns/MyAss
 import { propertyType } from "@/components/dataTable/data/data";
 import { TabItem } from "@/types";
 import { DashboardDetailCard } from "@/components/dashboard/dashboardDetailCard";
-import { MyAssetsTable } from "@/components/dashboard/myAssetsTable";
 import { RowData, AssetSmallTable} from "@/types";
+
+const fakeProperties = {
+  soldProperties: [
+    {
+      id: 4,
+      title: "Beachfront Condo in Miami",
+      first_image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29uZG98ZW58MHx8MHx8fDA%3D",
+      location: "Miami, USA",
+      price: 750000,
+      cap_rate: "5.8%",
+      ocupancy_status: "vacant",
+      property_type: "Condo",
+      totalTokens: 800,
+      sold_date: "2024-02-15",
+    },
+    {
+      id: 6,
+      title: "Country House in Tuscany",
+      first_image: "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291bnRyeSUyMGhvdXNlfGVufDB8fDB8fHww",
+      location: "Tuscany, Italy",
+      price: 580000,
+      cap_rate: "6.3%",
+      ocupancy_status: "vacant",
+      property_type: "House",
+      totalTokens: 650,
+      sold_date: "2024-01-05",
+    },
+  ],
+  myAssets: [
+    {
+      id: 7,
+      title: "Downtown Loft in Berlin",
+      first_image: "https://plus.unsplash.com/premium_photo-1684175656320-5c3f701c082c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      location: "Berlin, Germany",
+      price: 600000,
+      cap_rate: "5.2%",
+      ocupancy_status: "occupied",
+      property_type: "Loft",
+      totalTokens: 900,
+    },
+    {
+      id: 9,
+      title: "Ski Chalet in Switzerland",
+      first_image: "https://plus.unsplash.com/premium_photo-1687996107589-b288bcb27dbc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y2hhbGV0fGVufDB8fDB8fHww",
+      location: "Zermatt, Switzerland",
+      price: 1350000,
+      cap_rate: "4.8%",
+      ocupancy_status: "occupied",
+      property_type: "Chalet",
+      totalTokens: 700,
+    },
+  ],
+};
+
 
 
 interface ApiResponse {
@@ -34,9 +87,7 @@ const Assets = () => {
   const {
     invested_properties = [],
     property_types = [],
-    upcoming_rent_payments = [],
     user_owned_properties = [],
-    total_owned_value = 0
   } = data || {}; 
 
   
@@ -52,24 +103,22 @@ const Assets = () => {
       isDownloadable={true}
       columns={MyAssetsColumns}
       filterOptions={filterOptions}
-      data={invested_properties}
+      data={fakeProperties.soldProperties}
     />,
     <DataTable<RowData, unknown>
     isDownloadable={true}
     columns={MyAssetsColumns}
     filterOptions={filterOptions}
-    data={invested_properties}
-  />,
+    data={fakeProperties.myAssets}
+    />,
   ];
 
   return (
     <div className="rounded-lg">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10 rounded-lg">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <DashboardDetailCard title="Total Properties Owned" value={user_owned_properties.length} />
-          <DashboardDetailCard title="Total Invested Assets" value={user_owned_properties.length} />
-          <DashboardDetailCard title="Your Assets Value" isCurrency={true} value={total_owned_value} />
-          <DashboardDetailCard title="Projected Rental Yield" value={12} />
+          <DashboardDetailCard title="Total Properties Sold" value={3} />
+          <DashboardDetailCard title="Total Properties Bought" value={3} />
         </div>
         {property_types && (
         <Card>
@@ -83,9 +132,6 @@ const Assets = () => {
         </Card>
         )}
       </div>
-      <Card className="mb-5">
-        <MyAssetsTable assetsData={upcoming_rent_payments}/>
-      </Card>
       <DataAccordion tabs={tabs} components={tabComponents} />
     </div>
   );

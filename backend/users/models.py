@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin,AbstractUser
 from django.db import models
 from django.utils import timezone
 from property.models import PropertyToken
@@ -58,7 +58,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     is_email_verified = models.BooleanField(default=False)
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
 
@@ -81,12 +80,19 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             tokens_by_property[property_code.id] = property_token.number_of_tokens
 
         return tokens_by_property
+
+
+
+
+# class User(AbstractUser):
+
+#     class Role(models.TextChoices):
+#         USER = "USER", "user of the platfrom , can be a seller or buyer at the same time"
+#         LAWYER = "LAWYER", "Lawyer user"
+#         ADMIN = "ADMIN", "admin of the platform"
     
-    # def get_properties(self):
-    #     """
-    #     Devuelve las propiedades asociadas a este usuario con solo ciertos campos.
-    #     """
-    #     return self.properties.all().values('property_scrow_address', 'title', 'image')
+#     role = models.CharField(max_length=50, choices=Role.choices, default=Role.USER)
 
-
-
+#     def __str__(self):
+#         return f"{self.email}"
+    

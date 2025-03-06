@@ -92,7 +92,6 @@ const PaymentFlow = ({ property_id }:Props) => {
 
     socket.onmessage = async (event) => { // <-- Make this async
       const data = JSON.parse(event.data); 
-      console.log(data);
       
       if(data.type === "error"){
         toast({
@@ -254,30 +253,17 @@ const PaymentFlow = ({ property_id }:Props) => {
     
     switch (step) {
       case 1:
-        return <PaymentFirst propertyData={propertyData} />;
+        return <PaymentType goNext={()=> setStep(4)} />;
       case 2:
         return (
-          <PaymentSecond 
-            goNext={() => setStep(3)} 
-            tokenPrice={propertyData.tokens[0].token_price}  
-            totalTokens={propertyData.tokens[0].total_tokens}  
-            investmentAmount={investmentAmount} 
-            setInvestmentAmount={setInvestmentAmount} 
-            setTotalAmountInUSDC={setInvestmentAmountUSDC}
+          <PaymentOrderView 
+          tokenPrice={propertyData.tokens[0].token_price}
+          selectedPaymentMethod={investMethodTitle} 
+          investmentAmount={investmentAmountUSDC}
           />
         );
-      case 3:
-        return <PaymentType goNext={()=> setStep(4)} />;
-      case 4: 
-        return <PaymentMyAssets />
 
-      case 5:
-        return <PaymentOrderView 
-                  tokenPrice={propertyData.tokens[0].token_price}
-                  selectedPaymentMethod={investMethodTitle} 
-                  investmentAmount={investmentAmountUSDC}
-                  />
-      case 6:
+      case 3:
         return <PaymentSummary  investmentAmount={investmentAmountUSDC}  />;
       default:
         return null;
@@ -302,17 +288,13 @@ const PaymentFlow = ({ property_id }:Props) => {
               {step === 2 && (
                 <Button 
                   className="w-full" 
-                  onClick={() => investMethodTitle && setStep(5)} 
+                  onClick={() => investMethodTitle && setStep(3)} 
                   disabled={!investMethodTitle}
                 >
-                  Overview
+                  Buy
                 </Button>
               )}
-              {step === 5 && (
-                <Button onClick={handlePurchase}  disabled={!investmentAmountUSDC}>
-                   {postLoading ? "Loading..." : "Invest"} 
-              </Button>
-              )}
+             
               {step === 6 && (
                 <Button className="w-full" onClick={() =>{
                   setState(false);

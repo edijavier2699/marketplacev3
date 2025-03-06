@@ -1,11 +1,13 @@
-// PropertyProcessTracker.tsx
 import React from 'react';
 
 export enum InvestmentStep {
+  PROPERTY_RESEARCH = 'property-research',
   DUE_DILIGENCE = 'due-diligence',
   LEGAL_REVIEW = 'legal-review',
   CONTRACT_SIGNING = 'contract-signing',
   FUNDING = 'funding',
+  OWNERSHIP_TRANSFER = 'ownership-transfer',
+  PROPERTY_MANAGEMENT = 'property-management',
 }
 
 export enum StepStatus {
@@ -20,6 +22,7 @@ export interface InvestmentProcess {
   propertyName: string;
   location: string;
   price: string;
+  image: string;
   steps: PropertyStep[];
 }
 
@@ -35,12 +38,12 @@ interface ProcessTrackerProps {
   investments: InvestmentProcess[];
 }
 
-const ProcessTracker = ({ investments }:ProcessTrackerProps) => {
+const ProcessTracker = ({ investments }: ProcessTrackerProps) => {
   return (
-    <div >
-        {investments.map((investment) => (
-          <PropertyCard key={investment.propertyId} investment={investment} />
-        ))}
+    <div className="space-y-8">
+      {investments.map((investment) => (
+        <PropertyCard key={investment.propertyId} investment={investment} />
+      ))}
     </div>
   );
 };
@@ -49,19 +52,18 @@ interface PropertyCardProps {
   investment: InvestmentProcess;
 }
 
-const PropertyCard = ({ investment }:PropertyCardProps) => {
+const PropertyCard = ({ investment }: PropertyCardProps) => {
   return (
-    <div className="bg-white rounded-xl w-full shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
-      <div className="relative h-48 bg-[#F4FAE2]">
-        <div className="absolute bottom-0 left-0 p-6 ">
-          <h2 className="text-2xl font-bold mb-1">{investment.propertyName}</h2>
-          <p className="text-sm opacity-90">{investment.location}</p>
-          <div className="mt-2 text-lg font-semibold">
-            {investment.price}
+    <div className="bg-white rounded-xl  overflow-hidden">
+      <div className="relative h-64" style={{ backgroundImage: `url(${investment.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-6">
+          <div className="text-center text-white">
+            <h2 className="text-3xl font-bold">{investment.propertyName}</h2>
+            <p className="text-sm opacity-90">{investment.location}</p>
+            <div className="mt-2 text-lg font-semibold">{investment.price}</div>
           </div>
         </div>
       </div>
-      
       <div className="p-6">
         <ProcessTimeline steps={investment.steps} />
       </div>
@@ -73,7 +75,7 @@ interface ProcessTimelineProps {
   steps: PropertyStep[];
 }
 
-const ProcessTimeline = ({ steps }:ProcessTimelineProps) => {
+const ProcessTimeline = ({ steps }: ProcessTimelineProps) => {
   return (
     <div className="space-y-6">
       {steps.map((step, index) => (
@@ -88,26 +90,26 @@ interface TimelineStepProps {
   isLast: boolean;
 }
 
-const TimelineStep = React.memo(({ step, isLast }:TimelineStepProps) => {
+const TimelineStep = React.memo(({ step, isLast }: TimelineStepProps) => {
   const statusConfig = {
     [StepStatus.COMPLETED]: {
       color: 'bg-green-500',
-      icon: <CheckCircleIcon />,
+      icon: <CheckCircleIcon />, 
       text: 'text-green-500',
     },
     [StepStatus.IN_PROGRESS]: {
       color: 'bg-blue-500',
-      icon: <ProgressIcon />,
-      text: 'text-blue-500',
+      icon: <ProgressIcon />, 
+      text: 'text-blue-500 font-bold text-lg',
     },
     [StepStatus.DELAYED]: {
       color: 'bg-amber-500',
-      icon: <AlertIcon />,
+      icon: <AlertIcon />, 
       text: 'text-amber-500',
     },
     [StepStatus.PENDING]: {
       color: 'bg-gray-300',
-      icon: <PendingIcon />,
+      icon: <PendingIcon />, 
       text: 'text-gray-400',
     },
   };
@@ -116,12 +118,9 @@ const TimelineStep = React.memo(({ step, isLast }:TimelineStepProps) => {
 
   return (
     <div className="flex group">
-      {/* Timeline Line */}
       <div className="flex flex-col items-center w-10 mr-4">
-        <div className={`w-1 ${!isLast ? 'h-24' : 'h-10'} ${currentStatus.color} bg-opacity-30`} />
+        <div className={`w-1 ${!isLast ? 'h-24' : 'h-10'} bg-gray-300`} />
       </div>
-
-      {/* Step Content */}
       <div className="flex-1 pb-6">
         <div className="flex items-center mb-2">
           <div className={`${currentStatus.color} w-8 h-8 rounded-full flex items-center justify-center mr-3`}>
@@ -140,7 +139,7 @@ const TimelineStep = React.memo(({ step, isLast }:TimelineStepProps) => {
   );
 });
 
-// Custom Icons
+// Icons
 const CheckCircleIcon = () => (
   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -164,6 +163,9 @@ const PendingIcon = () => (
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg>
 );
+
+
+
 
 
 // ProcessCheck.tsx
@@ -204,34 +206,59 @@ const ProcessCheck = () => {
     
     // Mock data - En producción reemplazar con llamada real
     const mockData: InvestmentProcess = {
+      image: "https://images.unsplash.com/photo-1554232456-8727aae0cfa4",
       propertyId: referenceNumber,
       propertyName: `Property ${referenceNumber}`,
       location: "New York, NY",
       price: "$12.5M",
       steps: [
         {
-            step: InvestmentStep.DUE_DILIGENCE,
-            title: "Due Diligence",
-            description: "Financial and legal review",
-            status: StepStatus.COMPLETED,
-            date: "2024-03-15"
-          },
-          {
-            step: InvestmentStep.LEGAL_REVIEW,
-            title: "Legal Documentation",
-            description: "Contract preparation and review",
-            status: StepStatus.IN_PROGRESS,
-            date: "2024-03-22"
-          },
-          {
-            step: InvestmentStep.CONTRACT_SIGNING,
-            title: "Signing Process",
-            description: "Notary appointment and signing",
-            status: StepStatus.PENDING
-          },
+          step: InvestmentStep.PROPERTY_RESEARCH,
+          title: "Market Research",
+          description: "Comparative market analysis completed",
+          status: StepStatus.COMPLETED,
+          date: "2024-03-01"
+        },
+        {
+          step: InvestmentStep.DUE_DILIGENCE,
+          title: "Due Diligence",
+          description: "Financial and legal review",
+          status: StepStatus.COMPLETED,
+          date: "2024-03-10"
+        },
+        {
+          step: InvestmentStep.LEGAL_REVIEW,
+          title: "Legal Review",
+          description: "Contract preparation and verification",
+          status: StepStatus.IN_PROGRESS,
+          date: "2024-03-15"
+        },
+        {
+          step: InvestmentStep.CONTRACT_SIGNING,
+          title: "Contract Signing",
+          description: "Notary appointment and execution",
+          status: StepStatus.PENDING
+        },
+        {
+          step: InvestmentStep.FUNDING,
+          title: "Funding",
+          description: "Funds transfer and verification",
+          status: StepStatus.PENDING
+        },
+        {
+          step: InvestmentStep.OWNERSHIP_TRANSFER,
+          title: "Ownership Transfer",
+          description: "Title deed registration",
+          status: StepStatus.PENDING
+        },
+        {
+          step: InvestmentStep.PROPERTY_MANAGEMENT,
+          title: "Property Management",
+          description: "Handover to management company",
+          status: StepStatus.PENDING
+        }
       ]
     };
-    
     setInvestmentData(mockData);
     setLoading(false);
   };

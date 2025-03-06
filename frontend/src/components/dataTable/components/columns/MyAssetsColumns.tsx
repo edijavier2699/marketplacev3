@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "../tasdata-table-column-header";
 import { RowData } from "@/types";
 
+
 // Función para convertir el valor a número
 const toNumber = (value: unknown): number => {
   return typeof value === "number" ? value : parseFloat(value as string) || 0;

@@ -19,10 +19,9 @@ export const PaymentType = ({goNext }:PaymentTypeProps) => {
       <h4 className="font-bold text-xl">Select Payment Type</h4>
         <button
           className={`flex items-center  hover:bg-[#C8E870] w-full duration-300 p-2 rounded-lg ${investMethodTitle != 'usdc_token' ? 'bg-[#C8E870]' : ''}`}
-          onClick={goNext}
           >
           <span className="bg-black rounded-full p-3"><IoWalletOutline className="text-white text-xl"/></span>
-          <p className="pl-4">My Asset Tokens</p>
+          <p className="pl-4">Credit/Debit Card</p>
         </button>
   
       <button

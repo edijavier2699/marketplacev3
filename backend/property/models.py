@@ -184,6 +184,8 @@ class PropertyUpdates(models.Model):
         ]
 
 
+
+
 class PropertyToken(models.Model):
     property_code = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='property_tokens')
     token_code = models.ForeignKey("blockchain.Token", on_delete=models.CASCADE, related_name='property_tokens')
