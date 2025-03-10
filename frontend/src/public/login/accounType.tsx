@@ -8,6 +8,7 @@ import axios from "axios";
 import { useToast } from '@/components/ui/use-toast';
 // import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
+
 interface SignUpForm {
   email: string;
   password: string;
@@ -20,6 +21,7 @@ interface SignUpForm {
 export const AccountType = ({ formData }: { formData: SignUpForm }) => {
   const { toast } = useToast();
   // const navigate = useNavigate(); 
+
 
 
   // Función principal de envío

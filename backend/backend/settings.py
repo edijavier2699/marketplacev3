@@ -184,6 +184,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'users.authentication.Auth0JWTAuthentication',
     ),
+
+
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
@@ -233,6 +235,8 @@ DATABASES = {
         },
     }
 }
+
+
 
 
 ASGI_APPLICATION = 'backend.asgi.application'

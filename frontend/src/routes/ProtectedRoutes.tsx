@@ -9,6 +9,7 @@ import PropertyManagement from "@/private/admin/propertyManagment";
 import SearchProperty from "@/private/investor/search/searchProperty";
 import ProcessCheck from "@/private/investor/process/processCheck";
 
+
 const ProtectedRoutes = () => {
   return (
     <Routes>

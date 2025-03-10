@@ -84,6 +84,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 
+
+
 # class User(AbstractUser):
 
 #     class Role(models.TextChoices):

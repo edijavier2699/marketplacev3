@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import SignUpController from "../components/singUpFlow.tsx/singUpController"
 import VerifyEmailView from "@/public/login/verifyEmailView";
 
+
 const AuthRoutes = () => {
   return (
     <Routes>
